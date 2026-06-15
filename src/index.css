@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Barlow', system-ui, sans-serif;
+  --font-display: 'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-cond: 'Barlow Condensed', system-ui, sans-serif;
+
+  --color-bg: #0D1117;
+  --color-surface: #161B22;
+  --color-surface-2: #0E141B;
+  --color-border: #1B2735;
+  --color-border-2: #19212B;
+
+  --color-text: #E6EDF3;
+  --color-text-dim: #AEB7C0;
+  --color-text-muted: #8B949E;
+  --color-text-faint: #5A636E;
+
+  --color-live: #00C853;
+  --color-live-bg: rgba(0, 200, 83, .12);
+  --color-gold: #FFB300;
+  --color-red: #FF4D5A;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .35; transform: scale(.82); }
+}
+
+@keyframes sheen {
+  0% { transform: translateX(-120%); }
+  60%, 100% { transform: translateX(220%); }
+}
+
+@keyframes eqBar {
+  0%, 100% { height: 26%; }
+  50% { height: 100%; }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #262E38;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.animate-pulse-dot {
+  animation: pulseDot 1.2s infinite ease-in-out;
+}
+.animate-sheen {
+  animation: sheen 5.5s infinite ease-in-out;
+}
+.animate-eq {
+  animation: eqBar .9s infinite ease-in-out;
+}
+.animate-rise {
+  animation: riseIn .26s ease;
+}
+.animate-fade {
+  animation: fadeIn .3s ease;
+}
+.animate-skeleton {
+  animation: skeletonPulse 1.4s infinite ease-in-out;
+}
+
+/* hide scrollbar for the ticker */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.ticker-scroll {
+  animation: tickerScroll 40s linear infinite;
+}
+.ticker-track:hover .ticker-scroll {
+  animation-play-state: paused;
+}
