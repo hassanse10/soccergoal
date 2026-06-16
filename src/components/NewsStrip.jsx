@@ -12,7 +12,7 @@ export function NewsStrip() {
         </span>
       </div>
       <div className="relative flex-1 overflow-hidden">
-        <div className="ticker-scroll flex w-max">
+        <div className="news-scroll flex w-max">
           {[...headlines, ...headlines].map((article, i) => (
             <a
               key={i}

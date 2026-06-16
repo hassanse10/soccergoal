@@ -120,6 +120,9 @@ body {
 .ticker-scroll {
   animation: tickerScroll 40s linear infinite;
 }
+.news-scroll {
+  animation: tickerScroll 90s linear infinite;
+}
 .ticker-track:hover .ticker-scroll {
   animation-play-state: paused;
 }
