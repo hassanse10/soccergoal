@@ -53,6 +53,11 @@ The proxy pattern follows the existing `football-data.org` pattern already in `v
 - 15-minute in-memory cache (module-level, survives re-renders but resets on page reload)
 - Returns `{ headlines, loading }` — no error state exposed; failure = empty array
 
+### `src/hooks/useVenueWeather.js`
+- Accepts a `venueName` string, looks up coords via `venueCoords.js`, calls `weather.js`
+- Returns `{ temp, icon }` — both `null` until resolved, and `null` if venue unknown
+- Uses `useState`/`useEffect` internally; called by `MatchCard` as a standard React hook
+
 ### `src/components/NewsStrip.jsx`
 - Renders only when `headlines.length > 0` — invisible during load or on failure
 - Fixed "NEWS" label on the left (non-scrolling)
@@ -70,7 +75,7 @@ The proxy pattern follows the existing `football-data.org` pattern already in `v
 - No change to the external API of the component
 
 ### `src/components/MatchCard.jsx`
-- Looks up venue coords via `venueCoords.js` and fetches weather via `weather.js`
+- Calls `useVenueWeather(match.venue)` to get `{ temp, icon }`
 - Renders `23° ☀️` in `font-cond text-xs text-text-faint` to the left of the existing `›` chevron
 - If venue unknown or weather not yet loaded: slot is empty, no layout shift (chevron column is fixed width)
 
@@ -81,7 +86,7 @@ The proxy pattern follows the existing `football-data.org` pattern already in `v
 ### `vite.config.js`
 - Adds `/api/news` proxy entry targeting `https://newsapi.org/v2`
 - Injects `Authorization: Bearer ${env.NEWS_API_KEY}` on each proxied request
-- Rewrites path: `/api/news` → `/v2` prefix stripped
+- Target `https://newsapi.org/v2`; rewrites `/api/news` → `` so `/api/news/everything` hits `https://newsapi.org/v2/everything` — identical pattern to the existing `/api/fd` proxy
 
 ### `server.js`
 - Adds `createProxyMiddleware` route for `/api/news` → `https://newsapi.org/v2`
