@@ -23,6 +23,16 @@ export default defineConfig(({ mode }) => {
             })
           },
         },
+        '/api/news': {
+          target: 'https://newsapi.org/v2',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/news/, ''),
+          configure: (proxy) => {
+            proxy.on('proxyReq', (proxyReq) => {
+              proxyReq.setHeader('Authorization', `Bearer ${env.NEWS_API_KEY}`)
+            })
+          },
+        },
       },
     },
   }

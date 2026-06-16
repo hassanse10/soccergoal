@@ -18,6 +18,16 @@ app.use(
   })
 )
 
+app.use(
+  '/api/news',
+  createProxyMiddleware({
+    target: 'https://newsapi.org/v2',
+    changeOrigin: true,
+    pathRewrite: { '^/api/news': '' },
+    headers: { Authorization: `Bearer ${process.env.NEWS_API_KEY}` },
+  })
+)
+
 app.use(express.static(path.join(__dirname, 'dist')))
 
 app.get('/*splat', (req, res) => {
