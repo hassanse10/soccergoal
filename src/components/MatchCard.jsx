@@ -2,10 +2,12 @@ import { TeamCrest } from './TeamCrest'
 import { mapStatus } from '../utils/mapStatus'
 import { getLead, scoreColor, scoreValue, teamDim } from '../utils/matchHelpers'
 import { groupLabel } from '../utils/formatDate'
+import { useVenueWeather } from '../hooks/useVenueWeather'
 
 export const MatchCard = ({ match, onClick }) => {
   const status = mapStatus(match)
   const lead = getLead(match)
+  const { temp, icon } = useVenueWeather(match.venue)
 
   return (
     <div
@@ -28,6 +30,11 @@ export const MatchCard = ({ match, onClick }) => {
         <TeamRow team={match.homeTeam} score={scoreValue(match, 'home')} dim={teamDim(match.status, lead.h)} scoreColorClass={scoreColor(match.status, lead.h)} />
         <TeamRow team={match.awayTeam} score={scoreValue(match, 'away')} dim={teamDim(match.status, lead.a)} scoreColorClass={scoreColor(match.status, lead.a)} />
       </div>
+      {temp !== null && (
+        <span className="flex-none font-cond text-xs text-text-faint">
+          {temp}° {icon}
+        </span>
+      )}
       <div className="w-3.5 flex-none text-right text-lg text-text-faint">›</div>
     </div>
   )
