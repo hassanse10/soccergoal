@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useMatches } from '../hooks/useMatches'
 import { useMatchDetail } from '../hooks/useMatchDetail'
 import { Hero } from '../components/Hero'
+import { NewsStrip } from '../components/NewsStrip'
 import { Ticker } from '../components/Ticker'
 import { MatchCard } from '../components/MatchCard'
 import { MatchModal } from '../components/MatchModal'
@@ -46,6 +47,7 @@ export const Matches = () => {
   return (
     <div className="animate-fade">
       <Hero liveMatches={liveMatches} onSelect={(m) => setSelectedId(m.id)} />
+      <NewsStrip />
       <Ticker matches={matches} onSelect={(m) => setSelectedId(m.id)} />
 
       {sections.map((sec) => (
