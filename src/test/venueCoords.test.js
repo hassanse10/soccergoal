@@ -6,11 +6,15 @@ test('returns coords for exact match', () => {
 })
 
 test('matches case-insensitively', () => {
-  expect(lookupVenue('metlife stadium')).not.toBeNull()
+  const result = lookupVenue('metlife stadium')
+  expect(result).not.toBeNull()
+  expect(result.city).toBe('East Rutherford, NJ')
 })
 
 test('matches on partial venue name', () => {
-  expect(lookupVenue('Estadio Azteca, Mexico City')).not.toBeNull()
+  const result = lookupVenue('Estadio Azteca, Mexico City')
+  expect(result).not.toBeNull()
+  expect(result.city).toBe('Mexico City')
 })
 
 test('returns null for unknown venue', () => {
